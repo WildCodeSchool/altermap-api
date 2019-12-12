@@ -4,7 +4,7 @@ const { Pool } = require('pg');
 const express = require('express');
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -13,7 +13,7 @@ const pool = new Pool({
   host: process.env.SCALINGO_POSTGRESQL_URL,
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
-  port: process.env.PORT,
+  port: 5432,
 });
 
 app.get('/api/v1/construction-sites', (req, res) => {
