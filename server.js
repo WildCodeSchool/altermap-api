@@ -25,6 +25,7 @@ app.get('/api/v1/construction-sites', (req, res) => {
   });
 });
 
+
 app.post('/api/v1/construction-sites', (req, res) => {
   const { name, coords } = req.body;
   pool.query(
