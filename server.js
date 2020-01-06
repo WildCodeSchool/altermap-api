@@ -41,11 +41,12 @@ app.post('/api/v1/construction-sites', (req, res) => {
   );
 });
 
-app.put('/api/v1/construction-sites/', async (req, res) => {
-  const idConstructionSite = req.body.id;
+app.put('/api/v1/construction-sites/:id', async (req, res) => {
+  const { id } = req.params;
   const { name, coords } = req.body;
-  await pool.query('UPDATE construction_sites SET coords = $3 name = $1 WHERE id = $2',
-    [name, idConstructionSite, coords],
+  console.log(req.body);
+  await pool.query('UPDATE construction_sites SET coords =$3, name = $1  WHERE id =$2',
+    [name, id, coords],
     (err) => {
       if (err) {
         console.log(err);
