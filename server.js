@@ -48,6 +48,7 @@ app.get('/api/v1/construction-sites', async (req, res) => {
 
 app.post('/api/v1/construction-sites', async (req, res) => {
   const { name, coords } = req.body;
+  console.log(coords);
   const site = await Construction_site.create({ name, coords });
   res.send(site);
 >>>>>>> Add get and put sequelize method, needs correction into put method, coords format

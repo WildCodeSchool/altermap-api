@@ -8,12 +8,10 @@ module.exports = {
       type: Sequelize.INTEGER,
     },
     name: {
-      allowNull: false,
       type: Sequelize.STRING,
     },
     coords: {
-      allowNull: false,
-      type: Sequelize.ARRAY(Sequelize.DECIMAL),
+      type: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.DECIMAL)),
     },
     createdAt: {
       allowNull: false,
