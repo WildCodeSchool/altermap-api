@@ -5,6 +5,7 @@ const auth = require('./authentication');
 
 const app = express();
 const port = 4000;
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const constructionSites = require('./routes/construction_Sites');
