@@ -1,17 +1,23 @@
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('ConstructionSites', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Users', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    name: {
+    firstname: {
       type: Sequelize.STRING,
     },
-    coords: {
-      type: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.DECIMAL)),
+    lastname: {
+      type: Sequelize.STRING,
+    },
+    password: {
+      type: Sequelize.STRING,
+    },
+    email: {
+      type: Sequelize.STRING,
     },
     createdAt: {
       allowNull: false,
@@ -22,5 +28,5 @@ module.exports = {
       type: Sequelize.DATE,
     },
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('ConstructionSites'),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Users'),
 };
