@@ -1,4 +1,3 @@
-require('dotenv').config();
 const argon2 = require('argon2');
 const randomBytes = require('randombytes');
 const jwt = require('jsonwebtoken');
