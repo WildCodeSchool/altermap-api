@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const auth = require('./authentication');
+const geojson = require('./zones_inondables_66.json');
 
 const app = express();
 const port = 4000;
@@ -21,6 +22,7 @@ app.post('/api/v1/login', async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 app.get('/api/v1/construction-sites', async (req, res) => {
   const sites = await Construction_site.findAll();
   res.send(sites);
@@ -43,6 +45,15 @@ app.delete('/api/v1/construction-sites/:id', async (req, res) => {
   await Construction_site.destroy({ where: { id } });
   res.send(id);
 });
+=======
+app.get('/api/v1/geojson', (req, res) => {
+  const { coordinates } = geojson.features[0].geometry;
+  const { name } = geojson;
+  console.log(JSON.stringify({ coords: 'bla', name }));
+  res.send(JSON.stringify({ coordinates, name }));
+});
+
+>>>>>>> e45fc32d12463b72a84e3048718c46f01620df1e
 app.listen(port, (err) => {
   if (err) {
     throw new Error('Something bad happened...');
