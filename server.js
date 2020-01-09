@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const auth = require('./authentication');
+const geojson = require('./zones_inondables_66.json');
 
 const app = express();
 const port = 4000;
@@ -20,6 +21,13 @@ app.post('/api/v1/login', async (req, res) => {
   } catch (err) {
     res.status(401).send(err);
   }
+});
+
+app.get('/api/v1/geojson', (req, res) => {
+  const { coordinates } = geojson.features[0].geometry;
+  const { name } = geojson;
+  console.log(JSON.stringify({ coords: 'bla', name }));
+  res.send(JSON.stringify({ coordinates, name }));
 });
 
 app.listen(port, (err) => {
