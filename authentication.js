@@ -37,7 +37,7 @@ const authenticate = async ({ email, password }) => {
     id: user.id,
   };
   return {
-    token: jwt.sign(payload, secret, { expiresIn: '6h' }),
+    token: jwt.sign(payload, secret, { expiresIn: '12h' }),
   };
 };
 
