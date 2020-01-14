@@ -14,10 +14,10 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const {
-    lastname, compagny, email, password,
+    lastname, company, email, password,
   } = req.body;
   const user = await auth.register({
-    lastname, compagny, email, password,
+    lastname, company, email, password,
   });
   res.send(user);
 });
@@ -25,10 +25,10 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const {
-    lastname, compagny, email, password,
+    lastname, company, email, password,
   } = req.body;
   const updateUser = await User.update({
-    lastname, compagny, email, password,
+    lastname, company, email, password,
   }, { where: { id } });
   res.send(updateUser);
 });
