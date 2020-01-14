@@ -5,14 +5,20 @@ const auth = require('../authentication');
 
 const router = express.Router();
 
-router.get('/', auth.isAuthenticated, async (req, res) => {
+
+router.get('/', async (req, res) => {
   const users = await User.findAll();
+  res.header('X-Total-Count', users.length);
   res.send(users);
 });
 
-router.post('/', auth.isAuthenticated, async (req, res) => {
-  const { email, password } = req.body;
-  const user = await auth.register({ email, password });
+router.post('/', async (req, res) => {
+  const {
+    lastname, compagny, email, password,
+  } = req.body;
+  const user = await auth.register({
+    lastname, compagny, email, password,
+  });
   res.send(user);
 });
 
