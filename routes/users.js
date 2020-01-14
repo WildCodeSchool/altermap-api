@@ -22,4 +22,10 @@ router.post('/', async (req, res) => {
   res.send(user);
 });
 
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  await User.destroy({ where: { id } });
+  res.send(id);
+});
+
 module.exports = router;
