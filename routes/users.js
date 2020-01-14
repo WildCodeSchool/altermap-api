@@ -22,6 +22,17 @@ router.post('/', async (req, res) => {
   res.send(user);
 });
 
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const {
+    lastname, compagny, email, password,
+  } = req.body;
+  const updateUser = await User.update({
+    lastname, compagny, email, password,
+  }, { where: { id } });
+  res.send(updateUser);
+});
+
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   await User.destroy({ where: { id } });
