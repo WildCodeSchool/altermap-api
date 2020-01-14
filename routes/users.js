@@ -22,6 +22,11 @@ router.post('/', async (req, res) => {
   res.send(user);
 });
 
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+  res.send(id);
+});
+
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const {
