@@ -10,9 +10,10 @@ router.get('/', auth.isAuthenticated, async (req, res) => {
   res.send(users);
 });
 
-router.post('/', auth.isAuthenticated, async (req, res) => {
-  const { email, password } = req.body;
-  const user = await auth.register({ email, password });
+router.post('/', async (req, res) => {
+  const { email, password, role } = req.body;
+  console.log(role);
+  const user = await auth.register({ email, password, role });
   res.send(user);
 });
 

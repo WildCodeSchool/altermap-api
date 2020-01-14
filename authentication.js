@@ -7,14 +7,17 @@ const { User } = require('./server/models');
 const secret = process.env.JWT_SECRET;
 const isAuthenticated = expressJWT({ secret });
 
-const register = async ({ email, password }) => {
+const register = async ({ email, password, role }) => {
   const salt = randomBytes(32);
+  const roleNumber = Number(role);
+  console.log({ roleNumber });
   const hashedPassword = await argon2.hash(password, { salt });
-  const user = await User.create({
+  await User.create({
     email,
     password: hashedPassword,
+    role,
   });
-  return { email };
+  return { email, roleNumber };
 };
 
 const authenticate = async ({ email, password }) => {
