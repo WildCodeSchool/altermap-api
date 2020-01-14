@@ -1,39 +1,30 @@
 module.exports = (sequelize, DataTypes) => {
   const ConstructionSite = sequelize.define('ConstructionSite', {
-    name: DataTypes.STRING,
+    name: DataTypes.STRING(20),
     coords: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.DECIMAL)),
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('PROSPECTION', 'EN COURS', 'ANNULE', 'TERMINE'),
     },
     year: {
-      type: DataTypes.STRING,
-    },
-    buyer: {
-      type: DataTypes.STRING,
-    },
-    contact: {
-      type: DataTypes.STRING,
-    },
-    address: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022'),
     },
     num_conv: {
       type: DataTypes.STRING,
     },
-    date_sign: {
-      type: DataTypes.STRING,
-    },
-    tonnage: {
-      type: DataTypes.STRING,
-    },
     type_grave: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('MACHEFER', 'AUTRE'),
     },
     type_usage: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('V1', 'V2', 'V1 ET V2', 'AUTRE'),
+    },
+    buyer: {
+      type: DataTypes.STRING(80),
+    },
+    contact: {
+      type: DataTypes.STRING(80),
     },
     departement: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(2),
     },
     project_manager: {
       type: DataTypes.TEXT,
@@ -42,21 +33,25 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
     },
     area: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT(4),
+    },
+    date_sign: {
+      type: DataTypes.DATE,
     },
     photo: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
     },
-    tonnage_CUB: {
-      type: DataTypes.STRING,
+    lots: {
+      type: DataTypes.STRING(200),
+    },
+    tonnage: {
+      type: DataTypes.INTEGER,
     },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
     },
-    lots: {
-      type: DataTypes.STRING,
-    },
+
   }, {});
   ConstructionSite.associate = (models) => {
     // associations can be defined here

@@ -10,9 +10,19 @@ router.get('/', async (req, res) => {
   res.send(sites);
 });
 
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  const specificSite = await ConstructionSite.findOne({ where: { id } });
+  res.send(specificSite);
+});
+
 router.post('/', async (req, res) => {
-  const { name, coords } = req.body;
-  const site = await ConstructionSite.create({ name, coords });
+  const {
+    name, coords, status, buyer, contact, num_conv, date_sign, type_grave, year, type_usage, departement, project_manager, commentary, area, photo, lots, tonnage,
+  } = req.body;
+  const site = await ConstructionSite.create({
+    name, year, coords, status, buyer, contact, num_conv, date_sign, type_grave, type_usage, departement, project_manager, commentary, area, photo, lots, tonnage,
+  });
   res.send(site);
 });
 
