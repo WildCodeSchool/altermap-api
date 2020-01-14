@@ -14,10 +14,10 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const {
-    lastname, company, email, password,
+    lastname, company, email, password, role,
   } = req.body;
   const user = await auth.register({
-    lastname, company, email, password,
+    lastname, company, email, password, role,
   });
   res.send(user);
 });
