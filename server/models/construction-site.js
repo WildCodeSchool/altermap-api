@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT(4),
     },
     date_sign: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
     },
     photo: {
       type: DataTypes.STRING(100),

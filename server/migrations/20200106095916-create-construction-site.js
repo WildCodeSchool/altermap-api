@@ -43,7 +43,7 @@ module.exports = {
       type: Sequelize.FLOAT(4),
     },
     date_sign: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
     },
     photo: {
       type: Sequelize.STRING(100),
