@@ -18,7 +18,9 @@ const register = async ({
     email,
     password: hashedPassword,
   });
-  return { lastname, company, email };
+  return {
+    id: user.id, lastname, company, email,
+  };
 };
 
 const authenticate = async ({ email, password }) => {

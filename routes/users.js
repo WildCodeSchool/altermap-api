@@ -24,7 +24,8 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
-  res.send(id);
+  const userId = User.findOne({ where: { id } });
+  res.send(userId);
 });
 
 router.put('/:id', async (req, res) => {
