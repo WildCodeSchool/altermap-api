@@ -22,9 +22,6 @@ app.post('/api/v1/login', async (req, res) => {
     res.status(401).send(err);
   }
 });
-app.use('/api/v1/construction-sites', require('./routes/construction-sites'));
-
-app.use('/api/v1/users', require('./routes/users'));
 
 app.listen(port, (err) => {
   if (err) {
