@@ -6,13 +6,13 @@ const auth = require('../authentication');
 const router = express.Router();
 
 
-router.get('/', async (req, res) => {
+router.get('/', auth.isAuthenticated, async (req, res) => {
   const users = await User.findAll();
   res.header('X-Total-Count', users.length);
   res.send(users);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', auth.isAuthenticated, async (req, res) => {
   const {
     lastname, company, email, password,
   } = req.body;
@@ -22,13 +22,13 @@ router.post('/', async (req, res) => {
   res.send(user);
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth.isAuthenticated, async (req, res) => {
   const { id } = req.params;
   const userId = await User.findByPk(id);
   res.send(userId);
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth.isAuthenticated, async (req, res) => {
   const { id } = req.params;
   const {
     lastname, company, email, password,
@@ -39,7 +39,7 @@ router.put('/:id', async (req, res) => {
   res.send(updateUser);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth.isAuthenticated, async (req, res) => {
   const { id } = req.params;
   await User.destroy({ where: { id } });
   res.send(id);
