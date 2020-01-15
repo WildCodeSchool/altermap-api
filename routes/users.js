@@ -22,9 +22,9 @@ router.post('/', async (req, res) => {
   res.send(user);
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
-  const userId = User.findOne({ where: { id } });
+  const userId = await User.findByPk(id);
   res.send(userId);
 });
 
