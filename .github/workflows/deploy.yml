@@ -17,6 +17,7 @@ jobs:
           username: ${{secrets.SSH_USER}}
           password: ${{secrets.SSH_PASS}}
           script: |
+            cd /var/www/altermap-back
             git pull
             npm install --only=production
             npm run sequelize db:migrate
