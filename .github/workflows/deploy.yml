@@ -11,8 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Deploy
-        run: |
-          sshpass -p ${{secrets.SSH_PASS}} ssh \
-          ${{secrets.SSH_USER }}@${{secrets.SSH_HOST}} \
-          -o StrictHostKeyChecking=no \
-          "bash -s" ./deploy.sh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{secrets.SSH_USER}}
+          password: ${{secrets.SSH_PASS}}
+          script: |
+            git pull
+            npm install --only=production
+            npm run sequelize db:migrate
+            pm2 start "npm start"
