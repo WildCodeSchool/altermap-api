@@ -3,7 +3,37 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING(20),
     coords: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.DECIMAL)),
     status: {
-      type: DataTypes.ENUM('PROSPECTION', 'EN COURS', 'ANNULE', 'TERMINE'),
+      type: DataTypes.STRING,
+      get() {
+        switch (this.getDataValue('status')) {
+          case 'PROSPECTION':
+            return 'Prospection';
+          case 'IN_PROGRESS':
+            return 'En cours';
+          case 'CANCELLED':
+            return 'Annulé';
+          case 'FINISHED':
+            return ('Terminé');
+          default:
+            return null;
+          // return newError()`error ${this.status}`;
+        }
+      },
+      set(value) {
+        switch (value) {
+          case 'Prospection':
+            return this.setDataValue('status', 'PROSPECTION');
+          case 'En cours':
+            return this.setDataValue('status', 'IN_PROGRESS');
+          case 'Annulé':
+            return this.setDataValue('status', 'CANCELLED');
+          case 'Terminé':
+            return this.setDataValue('status', 'FINISHED');
+          default:
+            return null;
+          // return new Error()`error ${this.status}`;
+        }
+      },
     },
     year: {
       type: DataTypes.ENUM('2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022'),

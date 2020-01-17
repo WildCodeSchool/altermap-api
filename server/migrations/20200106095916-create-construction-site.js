@@ -10,7 +10,7 @@ module.exports = {
     name: Sequelize.STRING(20),
     coords: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.DECIMAL)),
     status: {
-      type: Sequelize.ENUM('PROSPECTION', 'EN COURS', 'ANNULE', 'TERMINE'),
+      type: Sequelize.STRING,
     },
     year: {
       type: Sequelize.ENUM('2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022'),
