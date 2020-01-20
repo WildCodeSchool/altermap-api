@@ -10,6 +10,10 @@ router.get('/', auth.isAuthenticated, async (req, res) => {
   res.send(sites);
 });
 
+router.get('/:id', auth.isAuthenticated, async (req, res) => {
+  res.send(await ConstructionSite.findOne({ where: { id: req.params.id } }));
+});
+
 router.post('/', auth.isAuthenticated, async (req, res) => {
   const { name, coords } = req.body;
   const site = await ConstructionSite.create({ name, coords });
