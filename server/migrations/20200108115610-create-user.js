@@ -13,11 +13,17 @@ module.exports = {
     lastname: {
       type: Sequelize.STRING,
     },
+    company: {
+      type: Sequelize.STRING,
+    },
     password: {
       type: Sequelize.STRING,
     },
     email: {
       type: Sequelize.STRING,
+    },
+    role: {
+      type: Sequelize.INTEGER,
     },
     createdAt: {
       allowNull: false,
