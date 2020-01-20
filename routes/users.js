@@ -12,7 +12,7 @@ router.get('/', auth.isAuthenticated, async (req, res) => {
   res.send(users);
 });
 
-router.post('/', auth.isAuthenticated, async (req, res) => {
+router.post('/', async (req, res) => {
   const {
     lastname, company, email, password, role,
   } = req.body;
