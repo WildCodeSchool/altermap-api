@@ -12,6 +12,7 @@ const register = async ({
 }) => {
   const salt = randomBytes(32);
   const roleNumber = Number(role);
+  console.log('entre en el log');
   console.log({ roleNumber });
   const hashedPassword = await argon2.hash(password, { salt });
   const user = await User.create({
