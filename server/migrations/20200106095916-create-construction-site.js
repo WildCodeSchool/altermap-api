@@ -10,19 +10,19 @@ module.exports = {
     name: Sequelize.STRING(20),
     coords: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.DECIMAL)),
     status: {
-      type: Sequelize.STRING,
+      type: Sequelize.ENUM('PROSPECTION', 'IN_PROGRESS', 'CANCELLED', 'FINISHED'),
     },
     year: {
-      type: Sequelize.ENUM('2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022'),
+      type: Sequelize.DATEONLY,
     },
     num_conv: {
       type: Sequelize.STRING,
     },
     type_grave: {
-      type: Sequelize.ENUM('MACHEFER', 'AUTRE'),
+      type: Sequelize.STRING
     },
     type_usage: {
-      type: Sequelize.ENUM('V1', 'V2', 'V1 ET V2', 'AUTRE'),
+      type: Sequelize.STRING
     },
     buyer: {
       type: Sequelize.STRING(80),

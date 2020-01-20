@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING(20),
     coords: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.DECIMAL)),
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('PROSPECTION', 'IN_PROGRESS', 'CANCELLED', 'FINISHED'),
       get() {
         switch (this.getDataValue('status')) {
           case 'PROSPECTION':
@@ -36,16 +36,69 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     year: {
-      type: DataTypes.ENUM('2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022'),
+      type: DataTypes.DATEONLY,
     },
     num_conv: {
       type: DataTypes.STRING,
     },
     type_grave: {
-      type: DataTypes.ENUM('MACHEFER', 'AUTRE'),
+      type: DataTypes.STRING,
+      get() {
+        switch (this.getDataValue('type_grave')) {
+          case 'MACHEFER':
+            return 'Machefer';
+          case 'OTHER':
+            return 'Autre';
+          default:
+            return null;
+          // return newError()`error ${this.status}`;
+        }
+      },
+      set(value) {
+        switch (value) {
+          case 'Machefer':
+            return this.setDataValue('type_grave', 'MACHEFER');
+          case 'Autre':
+            return this.setDataValue('type_grave', 'OTHER');
+          default:
+            return null;
+          // return new Error()`error ${this.status}`;
+        }
+      },
     },
+
     type_usage: {
-      type: DataTypes.ENUM('V1', 'V2', 'V1 ET V2', 'AUTRE'),
+      type: DataTypes.STRING,
+      get() {
+        switch (this.getDataValue('type_usage')) {
+          case 'V1':
+            return 'V1';
+          case 'V2':
+            return 'V2';
+          case 'V1 AND V2':
+            return 'V1 et V2';
+          case 'OTHER':
+            return 'Autre';
+          default:
+            return null;
+          // return newError()`error ${this.status}`;
+        }
+      },
+      set(value) {
+        switch (value) {
+          case 'V1':
+            return this.setDataValue('type_usage', 'V1');
+          case 'V2':
+            return this.setDataValue('type_usage', 'V2');
+          case 'V1 et V2':
+            return this.setDataValue('type_usage', 'V1 AND V2');
+          case 'Autre':
+            return this.setDataValue('type_usage', 'OTHER');
+          default:
+            return null;
+          // return new Error()`error ${this.status}`;
+        }
+      },
     },
     buyer: {
       type: DataTypes.STRING(80),
