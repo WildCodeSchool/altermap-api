@@ -38,6 +38,7 @@ const authenticate = async ({ email, password }) => {
 
   const payload = {
     id: user.id,
+    role: user.role,
   };
   return {
     token: jwt.sign(payload, secret, { expiresIn: '12h' }),
