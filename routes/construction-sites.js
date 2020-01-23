@@ -10,10 +10,8 @@ router.get('/', auth.isAuthenticated, async (req, res) => {
   res.send(sites);
 });
 
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  const specificSite = await ConstructionSite.findOne({ where: { id } });
-  res.send(specificSite);
+router.get('/:id', auth.isAuthenticated, async (req, res) => {
+  res.send(await ConstructionSite.findOne({ where: { id: req.params.id } }));
 });
 
 router.post('/', auth.isAuthenticated, async (req, res) => {
