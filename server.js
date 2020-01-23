@@ -42,6 +42,7 @@ app.post('/api/v1/cities', async (req, res) => {
   result = result.map((city) => ({
     nom: city.nom,
     coordinates: [city.centre.coordinates[1], city.centre.coordinates[0]],
+    code: city.code,
   }));
   res.send(result.slice(0, 5));
 });
