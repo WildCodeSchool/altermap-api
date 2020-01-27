@@ -12,7 +12,6 @@ const register = async ({
 }) => {
   const salt = randomBytes(32);
   const roleNumber = Number(role);
-  console.log({ roleNumber });
   const hashedPassword = await argon2.hash(password, { salt });
   const user = await User.create({
     lastname,
@@ -23,6 +22,23 @@ const register = async ({
   });
   return {
     id: user.id, lastname, company, email, roleNumber,
+  };
+};
+
+const editUser = async ({
+  lastname, company, email, password, role, id,
+}) => {
+  const salt = randomBytes(32);
+  const hashedPassword = await argon2.hash(password, { salt });
+  const userUpdate = await User.update({
+    lastname,
+    company,
+    email,
+    ...password && { password: hashedPassword },
+    role,
+  }, { where: { id } });
+  return {
+    userUpdate,
   };
 };
 
@@ -45,5 +61,5 @@ const authenticate = async ({ email, password }) => {
 };
 
 module.exports = {
-  register, authenticate, isAuthenticated,
+  register, authenticate, isAuthenticated, editUser,
 };
