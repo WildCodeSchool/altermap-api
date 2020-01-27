@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 router.get('/', auth.isAuthenticated, async (req, res) => {
-  const users = await User.findAll();
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
   res.header('X-Total-Count', users.length);
   res.send(users);
 });
@@ -24,18 +24,18 @@ router.post('/', auth.isAuthenticated, async (req, res) => {
 
 router.get('/:id', auth.isAuthenticated, async (req, res) => {
   const { id } = req.params;
-  const userId = await User.findByPk(id);
+  const userId = await User.findByPk(id, { attributes: { exclude: ['password'] } });
   res.send(userId);
 });
 
 router.put('/:id', auth.isAuthenticated, async (req, res) => {
   const { id } = req.params;
   const {
-    lastname, company, email, password,
+    lastname, company, email, password, role,
   } = req.body;
-  const updateUser = await User.update({
-    lastname, company, email, password,
-  }, { where: { id } });
+  const updateUser = await auth.editUser({
+    lastname, company, email, password, role, id,
+  });
   res.send(updateUser);
 });
 
