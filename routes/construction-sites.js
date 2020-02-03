@@ -1,9 +1,22 @@
 const express = require('express');
+const { Parser } = require('json2csv');
 
 const { ConstructionSite } = require('../server/models');
 const auth = require('../authentication');
 
 const router = express.Router();
+
+router.get('/export', async (req, res) => {
+  const cs = await ConstructionSite.findAll();
+  let fields = cs.map(item => {
+    for (let i in item) {
+      return item.dataValues
+    }
+  })
+  const json2csvParser = new Parser({ fields: Object.keys(fields[0]) });
+  const csv = json2csvParser.parse(cs);
+  res.send(csv)
+})
 
 router.get('/', auth.isAuthenticated, async (req, res) => {
   const sites = await ConstructionSite.findAll();
@@ -42,5 +55,7 @@ router.delete('/:id', auth.isAuthenticated, async (req, res) => {
   await ConstructionSite.destroy({ where: { id } });
   res.send(id);
 });
+
+
 
 module.exports = router;
