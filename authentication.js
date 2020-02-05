@@ -7,17 +7,17 @@ const { User } = require('./server/models');
 const secret = process.env.JWT_SECRET;
 const isAuthenticated = expressJWT({ secret });
 
+const hash = async (password) => argon2.hash(password, { salt: randomBytes(32) });
+
 const register = async ({
   lastname, company, email, password, role,
 }) => {
-  const salt = randomBytes(32);
   const roleNumber = Number(role);
-  const hashedPassword = await argon2.hash(password, { salt });
   const user = await User.create({
     lastname,
     company,
     email,
-    password: hashedPassword,
+    password: await hash(password),
     role,
   });
   return {
@@ -28,13 +28,11 @@ const register = async ({
 const editUser = async ({
   lastname, company, email, password, role, id,
 }) => {
-  const salt = randomBytes(32);
-  const hashedPassword = await argon2.hash(password, { salt });
   const userUpdate = await User.update({
     lastname,
     company,
     email,
-    ...password && { password: hashedPassword },
+    ...password && { password: await hash(password) },
     role,
   }, { where: { id } });
   return {
