@@ -1,0 +1,24 @@
+name: Deploy updates
+
+on:
+  push:
+    branches: master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{secrets.SSH_USER}}
+          password: ${{secrets.SSH_PASS}}
+          script: |
+            cd /var/www/altermap-back
+            git pull
+            npm install --only=production
+            npm run sequelize db:migrate
+            pm2 start "npm start"
